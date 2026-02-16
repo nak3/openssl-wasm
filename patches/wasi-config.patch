@@ -1,11 +1,10 @@
 diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index 46094f59..c3db2695 100644
 --- a/Configurations/10-main.conf
 +++ b/Configurations/10-main.conf
-@@ -1887,6 +1887,16 @@ my %targets = (
+@@ -1927,6 +1927,16 @@
          multilib         => "64",
      },
- 
+
 +    "wasm32-wasi" => {
 +        inherit_from     => [ "BASE_unix" ],
 +        CC               => "zig cc",
@@ -16,6 +15,6 @@ index 46094f59..c3db2695 100644
 +        bn_ops           => "THIRTY_TWO_BIT",
 +    },
 +
- ##### VxWorks for various targets
-     "vxworks-ppc60x" => {
+ #### uClinux
+     "uClinux-dist" => {
          inherit_from     => [ "BASE_unix" ],

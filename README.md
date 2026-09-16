@@ -71,3 +71,11 @@ and runs it with Wasmtime:
 ./examples/sha256/build.sh
 ./examples/sha256/run.sh
 ```
+
+The [LibreSSL Certificate Lab](examples/certificate-lab/) runs certificate
+inspection and CA verification locally in a browser:
+
+```sh
+./examples/certificate-lab/build.sh
+./examples/certificate-lab/serve.sh
+```

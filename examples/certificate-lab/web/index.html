@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LibreSSL Certificate Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="#">LibreSSL <span>Certificate Lab</span></a>
+    <div class="privacy"><span></span> Local-only processing</div>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">CRYPTOGRAPHY, MADE TANGIBLE</p>
+      <h1>Look inside a certificate.</h1>
+      <p>Drop in a PEM certificate. LibreSSL parses and verifies it inside your browser—nothing is uploaded.</p>
+      <div id="status" class="status">Loading LibreSSL WebAssembly…</div>
+    </section>
+
+    <section class="workspace">
+      <div class="input-card">
+        <div class="card-heading">
+          <div><span class="step">01</span><h2>Certificate</h2></div>
+          <div class="card-actions">
+            <button id="sample" class="quiet accent" disabled>Try sample</button>
+            <button id="clear" class="quiet" disabled>Clear</button>
+          </div>
+        </div>
+        <textarea id="certificate" spellcheck="false" placeholder="Paste a PEM certificate here, or drop a .pem/.crt file…"></textarea>
+        <button id="parse" class="primary" disabled>Inspect certificate <span>→</span></button>
+      </div>
+
+      <div class="output-card">
+        <div class="card-heading"><div><span class="step">02</span><h2>Details</h2></div></div>
+        <div id="empty-state" class="empty-state">
+          <div class="seal">⌁</div>
+          <p>Certificate details will appear here.</p>
+        </div>
+        <dl id="results" hidden></dl>
+      </div>
+    </section>
+
+    <section class="verify-card">
+      <div class="verify-copy">
+        <span class="step">03</span>
+        <h2>Verify against a CA</h2>
+        <p>Add a trusted CA certificate and let LibreSSL validate the chain locally.</p>
+        <button id="verify" class="secondary" disabled>Verify certificate</button>
+        <div id="verify-result" class="verify-result">Waiting for certificates.</div>
+      </div>
+      <textarea id="ca-certificate" spellcheck="false" placeholder="Paste or drop a CA certificate…"></textarea>
+    </section>
+  </main>
+  <footer>Powered by LibreSSL · WebAssembly · No network requests after load</footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

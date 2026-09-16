@@ -25,3 +25,47 @@ diff --git a/crypto/CMakeLists.txt b/crypto/CMakeLists.txt
  	bn/bn_add.c
  	bn/bn_add_sub.c
  	bn/bn_bpsw.c
+@@ -619 +614,6 @@ if(UNIX)
+ endif()
++if(CMAKE_SYSTEM_NAME STREQUAL "WASI")
++	set(CRYPTO_SRC ${CRYPTO_SRC} compat/crypto_lock_wasi.c)
++	set(CRYPTO_SRC ${CRYPTO_SRC} ui/ui_openssl_wasi.c)
++endif()
++
+diff --git a/crypto/compat/crypto_lock_wasi.c b/crypto/compat/crypto_lock_wasi.c
+new file mode 100644
+--- /dev/null
++++ b/crypto/compat/crypto_lock_wasi.c
+@@ -0,0 +1,17 @@
++#include <openssl/crypto.h>
++
++#include "crypto_internal.h"
++
++void
++CRYPTO_lock(int mode, int type, const char *file, int line)
++{
++}
++LCRYPTO_ALIAS(CRYPTO_lock);
++
++int
++CRYPTO_add_lock(int *pointer, int amount, int type, const char *file,
++    int line)
++{
++	return (*pointer += amount);
++}
++LCRYPTO_ALIAS(CRYPTO_add_lock);
+diff --git a/crypto/ui/ui_openssl_wasi.c b/crypto/ui/ui_openssl_wasi.c
+new file mode 100644
+--- /dev/null
++++ b/crypto/ui/ui_openssl_wasi.c
+@@ -0,0 +1,10 @@
++#include <openssl/ui.h>
++
++#include "ui_local.h"
++
++const UI_METHOD *
++UI_OpenSSL(void)
++{
++	return UI_null();
++}
++LCRYPTO_ALIAS(UI_OpenSSL);

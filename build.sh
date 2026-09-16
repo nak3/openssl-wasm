@@ -64,9 +64,14 @@ build_libressl() {
     fi
 
     build_dir=libressl/build-wasm32-wasi
+    ZIG_GLOBAL_CACHE_DIR=${ZIG_GLOBAL_CACHE_DIR:-$(pwd)/.zig-cache/global}
+    ZIG_LOCAL_CACHE_DIR=${ZIG_LOCAL_CACHE_DIR:-$(pwd)/.zig-cache/local}
+    export ZIG_GLOBAL_CACHE_DIR ZIG_LOCAL_CACHE_DIR
     cmake -S libressl -B "$build_dir" \
         -DCMAKE_TOOLCHAIN_FILE="$(pwd)/cmake/zig-wasi-toolchain.cmake" \
         -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_C_FLAGS_RELEASE=-O2 \
+        -DHAVE_SYSLOG=0 \
         -DBUILD_SHARED_LIBS=OFF \
         -DENABLE_ASM=OFF \
         -DLIBRESSL_APPS=OFF \

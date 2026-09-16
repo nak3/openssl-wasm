@@ -87,3 +87,11 @@ handwritten `i32.rotl` routine with LibreSSL SHA-256:
 ./examples/wasm-assembly/build.sh
 ./examples/wasm-assembly/run.sh
 ```
+
+The [LibreSSL TLS Lab](examples/tls-lab/) visualizes a real in-memory TLS 1.2
+handshake and encrypted `ping`/`pong` exchange in the browser:
+
+```sh
+./examples/tls-lab/build.sh
+./examples/tls-lab/serve.sh
+```

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LibreSSL TLS Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header>
+    <a href="#" class="brand">LibreSSL <span>TLS Lab</span></a>
+    <div id="runtime" class="runtime">Loading WebAssembly…</div>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">A TLS CONNECTION, UNFOLDED</p>
+      <h1>Watch trust<br>take shape.</h1>
+      <p class="lede">A real LibreSSL client and server negotiate TLS entirely inside your browser. Step through every record—no network required.</p>
+      <div class="actions">
+        <button id="play" class="primary" disabled>Play handshake</button>
+        <button id="next" class="secondary" disabled>Next record</button>
+        <button id="reset" class="secondary" disabled>Reset</button>
+      </div>
+    </section>
+
+    <section class="connection">
+      <div class="endpoint client">
+        <span class="endpoint-index">01</span>
+        <div class="endpoint-icon">C</div>
+        <h2>Client</h2>
+        <p>lab.example</p>
+        <div id="client-state" class="state">Ready</div>
+      </div>
+      <div class="wire">
+        <div class="wire-label">IN-MEMORY BIO</div>
+        <div class="line"></div>
+        <div id="packet" class="packet" hidden></div>
+        <div id="step-counter" class="step-counter">0 / 0</div>
+      </div>
+      <div class="endpoint server">
+        <span class="endpoint-index">02</span>
+        <div class="endpoint-icon">S</div>
+        <h2>Server</h2>
+        <p>self-signed demo identity</p>
+        <div id="server-state" class="state">Ready</div>
+      </div>
+    </section>
+
+    <section class="details">
+      <div class="detail-heading">
+        <div><span class="eyebrow">RECORD LOG</span><h2>What crossed the wire</h2></div>
+        <div id="negotiated" class="negotiated">Not negotiated</div>
+      </div>
+      <div id="empty" class="empty">Press “Play handshake” or move one record at a time.</div>
+      <ol id="events" class="events"></ol>
+    </section>
+  </main>
+  <footer>LibreSSL 4.3.2 · TLS 1.2 · WebAssembly · Local-only simulation</footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

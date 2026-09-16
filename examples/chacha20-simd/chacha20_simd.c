@@ -87,13 +87,19 @@ static void four_blocks(unsigned char *out, const unsigned char *in,
 void wasm_simd_chacha20(unsigned char *out, const unsigned char *in, size_t len,
     const unsigned char key[32], const unsigned char iv[8], uint64_t counter)
 {
+    unsigned char key_copy[32], iv_copy[8];
+
+    /* Preserve parameters in case the output overlaps the key or IV. */
+    memcpy(key_copy, key, sizeof(key_copy));
+    memcpy(iv_copy, iv, sizeof(iv_copy));
+
     while (len >= 256) {
-        four_blocks(out, in, key, iv, counter);
+        four_blocks(out, in, key_copy, iv_copy, counter);
         out += 256;
         in += 256;
         len -= 256;
         counter += 4;
     }
     if (len > 0)
-        CRYPTO_chacha_20(out, in, len, key, iv, counter);
+        CRYPTO_chacha_20(out, in, len, key_copy, iv_copy, counter);
 }

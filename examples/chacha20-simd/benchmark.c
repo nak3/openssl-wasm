@@ -47,6 +47,31 @@ static void print_size(size_t size)
         printf("%7zu MiB", size / (1024 * 1024));
 }
 
+static int test_parameter_aliases(const unsigned char *input,
+    const unsigned char key[32], const unsigned char iv[8])
+{
+    enum { TEST_SIZE = 512 };
+    unsigned char expected[TEST_SIZE], actual[TEST_SIZE];
+
+    CRYPTO_chacha_20(expected, input, TEST_SIZE, key, iv, 0);
+
+    memcpy(actual, key, 32);
+    wasm_simd_chacha20(actual, input, TEST_SIZE, actual, iv, 0);
+    if (memcmp(expected, actual, TEST_SIZE) != 0) {
+        fputs("FAIL: SIMD output differs when output overlaps key\n", stderr);
+        return 1;
+    }
+
+    memcpy(actual, iv, 8);
+    wasm_simd_chacha20(actual, input, TEST_SIZE, key, actual, 0);
+    if (memcmp(expected, actual, TEST_SIZE) != 0) {
+        fputs("FAIL: SIMD output differs when output overlaps IV\n", stderr);
+        return 1;
+    }
+
+    return 0;
+}
+
 int main(void)
 {
     unsigned char key[32], iv[8];
@@ -72,6 +97,8 @@ int main(void)
             return 1;
         }
     }
+    if (test_parameter_aliases(input, key, iv) != 0)
+        return 1;
     puts("PASS: SIMD output matches LibreSSL at every tested size");
     puts("");
     puts("   size     LibreSSL -O3      WASM SIMD     speedup");

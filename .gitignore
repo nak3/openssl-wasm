@@ -3,3 +3,4 @@
 zig-out
 precompiled/include/openssl/*.in
 /libressl/
+*.wasm

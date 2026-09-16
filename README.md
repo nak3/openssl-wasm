@@ -61,3 +61,13 @@ excluded, matching the OpenSSL build's `no-sock` configuration. TLS can still
 be driven by an application-provided BIO.
 
 Running `./build.sh` without an argument continues to build OpenSSL.
+
+## Examples
+
+The [SHA-256 example](examples/sha256/) links `libcrypto.a` into a WASI module
+and runs it with Wasmtime:
+
+```sh
+./examples/sha256/build.sh
+./examples/sha256/run.sh
+```

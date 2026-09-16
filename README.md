@@ -79,3 +79,11 @@ inspection and CA verification locally in a browser:
 ./examples/certificate-lab/build.sh
 ./examples/certificate-lab/serve.sh
 ```
+
+The [WebAssembly assembly example](examples/wasm-assembly/) combines a
+handwritten `i32.rotl` routine with LibreSSL SHA-256:
+
+```sh
+./examples/wasm-assembly/build.sh
+./examples/wasm-assembly/run.sh
+```

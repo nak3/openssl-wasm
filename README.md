@@ -1,6 +1,6 @@
-# OpenSSL 3 (libcrypto and libtls) for WebAssembly
+# OpenSSL 3 and LibreSSL for WebAssembly
 
-This is OpenSSL, compiled to WebAssembly/WASI.
+This repository builds OpenSSL or LibreSSL as static libraries for WebAssembly/WASI.
 
 Up-to-date. Maintained.
 
@@ -12,7 +12,7 @@ For convenience, [precompiled files](precompiled/) libraries for WebAssembly can
 
 They can be directly linked to C, Rust, Zig, etc. as regular static libraries.
 
-## OpenSSL submodule
+## OpenSSL source
 
 This repository includes an unmodified version of `OpenSSL` as a submodule. If you didn't clone it with the `--recursive` flag, the following command can be used to pull the submodule:
 
@@ -25,6 +25,8 @@ git submodule update --init --recursive --depth=1
 The only required dependencies to rebuild the library are:
 
 * Perl - Required by OpenSSL to generate files
+* CMake - Required when building LibreSSL
+* curl - Required by the LibreSSL source fetcher
 * [Zig](https://www.ziglang.org) - To compile C code to WebAssembly
 
 ## Building
@@ -35,3 +37,27 @@ The only required dependencies to rebuild the library are:
 ```
 
 The resulting files can be found in the `precompiled` directory.
+
+## Building LibreSSL
+
+LibreSSL 4.3.2 is downloaded from the official OpenBSD mirror and verified
+against a pinned SHA-256 checksum. It is then cross-compiled with Zig through
+LibreSSL's CMake build.
+
+```sh
+./fetch-libressl.sh
+./patch.sh libressl
+./build.sh libressl
+```
+
+The result uses the same layout as the OpenSSL build. It contains
+`libcrypto.a` and `libssl.a` in `precompiled/lib`, with the
+LibreSSL headers in `precompiled/include`. Building one provider replaces the
+other provider's headers and same-named libraries, so consumers cannot
+accidentally mix the two implementations.
+
+WASI Preview 1 has no socket API, so LibreSSL's socket BIO implementations are
+excluded, matching the OpenSSL build's `no-sock` configuration. TLS can still
+be driven by an application-provided BIO.
+
+Running `./build.sh` without an argument continues to build OpenSSL.

@@ -1,0 +1,27 @@
+diff --git a/crypto/CMakeLists.txt b/crypto/CMakeLists.txt
+--- a/crypto/CMakeLists.txt
++++ b/crypto/CMakeLists.txt
+@@ -266,23 +266,18 @@ set(
+ 	bf/blowfish.c
+ 	bio/b_dump.c
+ 	bio/b_print.c
+-	bio/b_sock.c
+ 	bio/bf_buff.c
+ 	bio/bf_nbio.c
+ 	bio/bf_null.c
+ 	bio/bio_cb.c
+ 	bio/bio_err.c
+ 	bio/bio_lib.c
+ 	bio/bio_meth.c
+-	bio/bss_acpt.c
+ 	bio/bss_bio.c
+-	bio/bss_conn.c
+-	bio/bss_dgram.c
+ 	bio/bss_fd.c
+ 	bio/bss_file.c
+ 	bio/bss_mem.c
+ 	bio/bss_null.c
+-	bio/bss_sock.c
+ 	bn/bn_add.c
+ 	bn/bn_add_sub.c
+ 	bn/bn_bpsw.c

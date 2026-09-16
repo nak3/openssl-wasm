@@ -2,3 +2,4 @@
 .zig-cache
 zig-out
 precompiled/include/openssl/*.in
+/libressl/

@@ -95,3 +95,11 @@ handshake and encrypted `ping`/`pong` exchange in the browser:
 ./examples/tls-lab/build.sh
 ./examples/tls-lab/serve.sh
 ```
+
+The [ChaCha20 SIMD experiment](examples/chacha20-simd/) compares LibreSSL's
+portable implementation with a four-block WebAssembly SIMD implementation:
+
+```sh
+./examples/chacha20-simd/build.sh
+./examples/chacha20-simd/run.sh
+```

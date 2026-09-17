@@ -1,0 +1,10 @@
+[package]
+name = "libressl-cranelift-runner"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+anyhow = "1.0"
+wasmtime = { version = "36.0.15", default-features = false, features = ["cranelift", "runtime", "std"] }
+wasmtime-wasi = { version = "36.0.15", default-features = false, features = ["preview1"] }

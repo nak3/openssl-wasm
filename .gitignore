@@ -4,3 +4,5 @@ zig-out
 precompiled/include/openssl/*.in
 /libressl/
 *.wasm
+*.cwasm
+examples/cranelift-runner/target/

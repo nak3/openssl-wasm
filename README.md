@@ -103,3 +103,12 @@ portable implementation with a four-block WebAssembly SIMD implementation:
 ./examples/chacha20-simd/build.sh
 ./examples/chacha20-simd/run.sh
 ```
+
+The [Cranelift runner](examples/cranelift-runner/) embeds Wasmtime to compile a
+LibreSSL SHA-256 module with Cranelift, writes a native AOT artifact, and
+compares compilation, loading, instantiation, and execution timings:
+
+```sh
+./examples/cranelift-runner/build.sh
+./examples/cranelift-runner/run.sh
+```
